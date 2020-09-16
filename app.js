@@ -6,18 +6,21 @@ const db = require("./db");
 //passport
 const passport = require("passport");
 //local startegy
-const { localStrategy } = require("./middleware/passport");
+const { localStrategy, jwtStrategy } = require("./middleware/passport");
 //bodyparser
 const bodyParser = require("body-parser");
 //routes
 const userRoutes = require("./routes/users");
+const childroutes = require("./routes/childs");
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 passport.use(localStrategy);
+passport.use(jwtStrategy);
 app.use(userRoutes);
+app.use("/children", childroutes);
 
 //Not Found Paths
 app.use((req, res, next) => {
