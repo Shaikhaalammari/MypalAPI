@@ -16,7 +16,10 @@
     "passport-local": "^1.0.0",
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5"
+    "react-native-push-notification": "^5.1.0",
+    "sequelize": "^6.3.5",
+    "slugify": "^1.4.5",
+    "sqlite3": "^5.0.0"
   },
   "scripts": {
     "start": "nodemon app.js"

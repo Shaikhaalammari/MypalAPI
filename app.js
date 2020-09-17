@@ -1,6 +1,9 @@
 const express = require("express");
 //cors
 const cors = require("cors");
+
+const bodyParser = require("body-parser");
+const path = require("path");
 //DB
 const db = require("./db");
 //passport
@@ -13,9 +16,21 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/users");
 const childroutes = require("./routes/childs");
 
+
+//create express instance
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+//db
+const db = require("./db");
+const { Message } = require("./db/models");
+
+//routes
+const messageRoutes = require("./routes/messages");
+
+// routers
+app.use("/messages", messageRoutes);
 app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);

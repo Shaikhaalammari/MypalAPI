@@ -1,3 +1,4 @@
+const Message = require("./Message");
 const User = require("./User");
 const Child = require("./Child");
 
@@ -17,4 +18,6 @@ Child.belongsTo(User, {
 module.exports = {
   User,
   Child,
+  Message,
 };
+
