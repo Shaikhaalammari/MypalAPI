@@ -5,13 +5,13 @@ const Child = require("./Child");
 
 User.hasMany(Child, {
   as: "children",
-  foreignKey: "userId",
+  foreignKey: "userId", // can't have a foreignkey here, since a user has many children
   allowNull: false,
 });
 
 Child.belongsTo(User, {
   as: "user",
-  foreignKey: "userId",
+  foreignKey: "userId", // should be "childId"
 });
 
 module.exports = {

@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.log(500);
-  res.status(err.status || 500); // 500 y3ne backend error (notfound)
+  res.status(err.status || 500); // 500 ya3ne backend error (notfound)
   res.json({
     message: err.message || "Internal Server Error",
   });

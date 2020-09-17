@@ -9,9 +9,11 @@ exports.signup = async (req, res, next) => {
   const saltRounds = 10;
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // remove console logs
     console.log("exports.signup -> hashedPassword", hashedPassword);
     req.body.password = hashedPassword;
     const newUser = await User.create(req.body);
+    // get and return the auth token in the json repsonse
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     next(error);
