@@ -1,21 +1,15 @@
 const express = require("express");
-//cors
+const passport = require("passport");
+const { localStrategy, jwtStrategy } = require("./middleware/passport");
 const cors = require("cors");
 
 const bodyParser = require("body-parser");
 const path = require("path");
-//DB
-const db = require("./db");
-//passport
-const passport = require("passport");
-//local startegy
-const { localStrategy, jwtStrategy } = require("./middleware/passport");
-//bodyparser
-const bodyParser = require("body-parser");
+
 //routes
 const userRoutes = require("./routes/users");
 const childroutes = require("./routes/childs");
-
+const messageRoutes = require("./routes/messages");
 
 //create express instance
 const app = express();
@@ -25,9 +19,6 @@ app.use(bodyParser.json());
 //db
 const db = require("./db");
 const { Message } = require("./db/models");
-
-//routes
-const messageRoutes = require("./routes/messages");
 
 // routers
 app.use("/messages", messageRoutes);
