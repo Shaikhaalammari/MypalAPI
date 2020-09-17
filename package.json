@@ -6,11 +6,15 @@
   "author": "Shaikhaalammari <66787565+Shaikhaalammari@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5"
+    "react-native-push-notification": "^5.1.0",
+    "sequelize": "^6.3.5",
+    "slugify": "^1.4.5",
+    "sqlite3": "^5.0.0"
   },
   "scripts": {
     "start": "nodemon app.js"
