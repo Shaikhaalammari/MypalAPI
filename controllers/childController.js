@@ -3,7 +3,7 @@ const { Child, User } = require("../db/models");
 
 exports.childList = async (req, res) => {
   try {
-    const childs = await User.findAll;
+    const childs = await Child.findAll();
     res.json(childs);
   } catch (error) {
     res.status(500).json({ message: error.message });
