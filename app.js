@@ -11,7 +11,7 @@ const { localStrategy, jwtStrategy } = require("./middleware/passport");
 const bodyParser = require("body-parser");
 //routes
 const userRoutes = require("./routes/users");
-const childroutes = require("./routes/childs");
+const childroutes = require("./routes/children");
 
 const app = express();
 app.use(cors());

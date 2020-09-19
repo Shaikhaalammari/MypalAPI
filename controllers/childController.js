@@ -17,15 +17,12 @@ exports.childCreate = async (req, res, next) => {
 
     const newChild = await Child.create(req.body);
     res.status(201).json(newChild);
-    console.log(newChild);
   } catch (error) {
     next(error);
   }
 };
 
 exports.childUpdate = async (req, res, next) => {
-  //   if (req.user || req.user.id === req.child.userId) {
-  //     // not sure about this
   try {
     await req.child.update(req.body);
     res.status(204).end();

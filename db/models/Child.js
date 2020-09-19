@@ -5,12 +5,12 @@ class Child extends Model {}
 
 Child.init(
   {
-    childname: {
+    name: {
       type: DataTypes.STRING,
     },
 
     age: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     gender: {
       type: DataTypes.STRING,

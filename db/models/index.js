@@ -10,8 +10,8 @@ User.hasMany(Child, {
 });
 
 Child.belongsTo(User, {
-  as: "user",
-  foreignKey: "userId",
+  as: "user", // created by defualt
+  // foreignKey: "userId",
 });
 
 module.exports = {
