@@ -1,21 +1,28 @@
 const express = require("express");
-//cors
-const cors = require("cors");
-//DB
-const db = require("./db");
-//passport
 const passport = require("passport");
-//local startegy
 const { localStrategy, jwtStrategy } = require("./middleware/passport");
-//bodyparser
+const cors = require("cors");
+
 const bodyParser = require("body-parser");
+const path = require("path");
+
 //routes
 const userRoutes = require("./routes/users");
-const childroutes = require("./routes/children");
 
+const childroutes = require("./routes/children");
+const messageRoutes = require("./routes/messages");
+
+//create express instance
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+//db
+const db = require("./db");
+const { Message } = require("./db/models");
+
+// routers
+app.use("/messages", messageRoutes);
 app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
