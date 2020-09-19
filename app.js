@@ -8,7 +8,8 @@ const path = require("path");
 
 //routes
 const userRoutes = require("./routes/users");
-const childroutes = require("./routes/childs");
+
+const childroutes = require("./routes/children");
 const messageRoutes = require("./routes/messages");
 
 //create express instance
