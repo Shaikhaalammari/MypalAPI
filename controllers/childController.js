@@ -1,6 +1,14 @@
 //data
 const { Child, User } = require("../db/models");
 
+exports.fetchChild = async (childId, next) => {
+  try {
+    const child = await Child.findByPk(childId);
+    return child;
+  } catch (error) {
+    next(error);
+  }
+};
 exports.childList = async (req, res) => {
   try {
     const childs = await Child.findAll();
@@ -26,9 +34,10 @@ exports.childUpdate = async (req, res, next) => {
   try {
     await req.child.update(req.body);
     res.status(204).end();
-  } catch {
-    const err = new Error("Unauthorized");
-    err.status = 401;
+  } catch (err) {
     next(err);
   }
 };
+
+//findbypk ?
+// childId??

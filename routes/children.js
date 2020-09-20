@@ -7,7 +7,21 @@ const {
   childList,
   childCreate,
   childUpdate,
+  fetchChild,
 } = require("../controllers/childController");
+
+//param
+router.param("childId", async (req, res, next, childId) => {
+  const child = await fetchChild(childId, next);
+  if (child) {
+    req.child = child;
+    next();
+  } else {
+    const err = new Error("Child not found");
+    err.status = 404;
+    next(err);
+  }
+});
 
 //List
 router.get("/", childList);
