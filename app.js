@@ -10,6 +10,7 @@ const path = require("path");
 const userRoutes = require("./routes/users");
 const childroutes = require("./routes/childs");
 const messageRoutes = require("./routes/messages");
+const notificationRoutes = require("./routes/notifications");
 
 //create express instance
 const app = express();
@@ -22,6 +23,7 @@ const { Message } = require("./db/models");
 
 // routers
 app.use("/messages", messageRoutes);
+app.use("/childRequest", notificationRoutes);
 app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
