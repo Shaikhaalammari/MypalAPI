@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
 //controllers
 const { messageList, addMessage } = require("../controllers/messageController");
+
+// Midleware
+const upload = require("../middleware/multer");
 
 router.param("messageId", async (req, res, next, messageId) => {
   console.log(`The value of message's ID is ${messageId}`);
@@ -21,6 +25,6 @@ router.param("messageId", async (req, res, next, messageId) => {
 router.get("/", messageList);
 
 // Add message
-router.post("/", addMessage);
+router.post("/", upload.single("image"), addMessage);
 
 module.exports = router;
