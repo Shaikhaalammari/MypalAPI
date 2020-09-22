@@ -5,10 +5,6 @@ const passport = require("passport");
 const { notification } = require("../controllers/notificationController");
 
 // Add Child Message
-router.post(
-  "/notification",
-  passport.authenticate("jwt", { session: false }),
-  notification
-);
+router.post("/notifications", notification);
 
 module.exports = router;
