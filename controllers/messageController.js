@@ -24,9 +24,9 @@ exports.messageList = async (req, res, next) => {
 exports.addMessage = async (req, res, next) => {
   try {
     if (req.file) {
-      req.body.image = `${process.env.PORT ? "https" : "http"}://${req.get(
-        "host"
-      )}/media/${req.file.filename}`;
+      req.body.image = `${req.protocol}://${req.get("host")}/media/${
+        req.file.filename
+      }`;
     }
 
     const newMessage = await Message.create(req.body);
@@ -35,12 +35,3 @@ exports.addMessage = async (req, res, next) => {
     next(error);
   }
 };
-
-// exports.addMessage = async (req, res, next) => {
-//   try {
-//     const newMessage = await Message.create({ childId: req.child.id });
-//     res.status(201).json(newMessage);
-//   } catch (error) {
-//     next(error);
-//   }
-// };

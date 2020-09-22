@@ -1,7 +1,7 @@
 const Message = require("./Message");
 const User = require("./User");
 const Child = require("./Child");
-const ChildMessage = require("./ChildMessage");
+const Notification = require("./Notification");
 
 // User.hasOne(Profile, { as: "profile", foreignKey: "userId" });
 
@@ -17,14 +17,14 @@ Child.belongsTo(User, {
 });
 
 Child.belongsToMany(Message, {
-  through: ChildMessage,
+  through: Notification,
   foreignKey: "messageId",
 });
-Message.belongsToMany(Child, { through: ChildMessage, foreignKey: "childId" });
+Message.belongsToMany(Child, { through: Notification, foreignKey: "childId" });
 
 module.exports = {
   User,
   Child,
   Message,
-  ChildMessage,
+  Notification,
 };

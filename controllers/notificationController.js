@@ -1,5 +1,5 @@
 //data
-const { ChildMessage, Message, Child } = require("../db/models");
+const { Notification } = require("../db/models");
 
 // exports.childRequest = async (req, res, next) => {
 //   try {
@@ -21,7 +21,7 @@ exports.notification = async (req, res, next) => {
       ...req.body,
       childId: req.user.id,
     };
-    const newItem = await ChildMessage.create(messageItem);
+    const newItem = await Notification.create(messageItem);
     res.json(newItem);
   } catch (error) {
     next(error);
