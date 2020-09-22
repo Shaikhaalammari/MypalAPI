@@ -1,13 +1,13 @@
 const { DataTypes, Model } = require("sequelize");
 const db = require("../db");
 
-class ChildMessage extends Model {}
+class Notification extends Model {}
 
-ChildMessage.init(
+Notification.init(
   {},
   {
     sequelize: db,
   }
 );
 
-module.exports = ChildMessage;
+module.exports = Notification;
