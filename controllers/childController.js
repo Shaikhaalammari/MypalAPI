@@ -1,5 +1,8 @@
 //data
 const { Child, User } = require("../db/models");
+//jwt
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../config/keys");
 
 exports.fetchChild = async (childId, next) => {
   try {
@@ -22,9 +25,8 @@ exports.childCreate = async (req, res, next) => {
   try {
     console.log(req.body);
     req.body.userId = req.user.id;
-
     const newChild = await Child.create(req.body);
-    res.status(201).json(newChild);
+    res.status(201).json(newChild); //(/caregiver/child/)
   } catch (error) {
     next(error);
   }
@@ -39,5 +41,16 @@ exports.childUpdate = async (req, res, next) => {
   }
 };
 
-//findbypk ?
-// childId??
+exports.childSignin = async (req, res) => {
+  const { child } = req;
+  const payload = {
+    id: child.id,
+    name: child.name,
+    age: child.age,
+    gender: child.gender,
+
+    expires: Date.now() + parseInt(JWT_EXPIRATION_MS), // the token will expire 15 minutes from when it's generated
+  };
+  const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
+  res.json({ token });
+};

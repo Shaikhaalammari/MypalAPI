@@ -8,6 +8,7 @@ const {
   childCreate,
   childUpdate,
   fetchChild,
+  childSignin,
 } = require("../controllers/childController");
 
 //param
@@ -35,5 +36,7 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   childUpdate
 );
+
+router.post("/:childId", childSignin);
 
 module.exports = router;
