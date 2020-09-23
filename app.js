@@ -9,13 +9,13 @@ const { localStrategy, jwtStrategy } = require("./middleware/passport");
 
 // DB
 const db = require("./db");
-const { Message } = require("./db/models");
+const { Action } = require("./db/models");
 
 //Routes
 const userRoutes = require("./routes/users");
 const childroutes = require("./routes/children");
+const actionRoutes = require("./routes/actions");
 const messageRoutes = require("./routes/messages");
-const notificationRoutes = require("./routes/notifications");
 
 //Create Express App instance
 const app = express();
@@ -28,8 +28,8 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 // Routers
+app.use("/actions", actionRoutes);
 app.use("/messages", messageRoutes);
-app.use("/notifications", notificationRoutes);
 app.use("/children", childroutes);
 app.use("/media", express.static(path.join(__dirname, "media")));
 app.use(userRoutes);
@@ -47,9 +47,10 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal Server Error",
   });
 });
+
 const run = async () => {
   try {
-    await db.sync();
+    await db.sync({ force: true });
     console.log("Connection to the database successful!");
   } catch (error) {
     console.error("Error connecting to the database: ", error);
