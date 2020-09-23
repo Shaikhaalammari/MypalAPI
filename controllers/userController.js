@@ -11,6 +11,7 @@ exports.signup = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     req.body.password = hashedPassword;
     const newUser = await User.create(req.body);
+    // REVIEW: why is the signup not returning a token?
     res.status(201).json({ message: "User created successfully" }); // res.token
   } catch (error) {
     next(error);

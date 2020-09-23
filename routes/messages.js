@@ -8,6 +8,7 @@ const { messageList, addMessage } = require("../controllers/messageController");
 // Midleware
 const upload = require("../middleware/multer");
 
+// REVIEW: why do you need the route param middleware?
 router.param("messageId", async (req, res, next, messageId) => {
   console.log(`The value of message's ID is ${messageId}`);
   const message = await fetchMessage(messageId, next);
