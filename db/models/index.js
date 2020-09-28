@@ -1,7 +1,8 @@
 const Action = require("./Action");
-const User = require("./User");
+const Archive = require("./Archive");
 const Child = require("./Child");
 const Message = require("./Message");
+const User = require("./User");
 
 // User.hasOne(Profile, { as: "profile", foreignKey: "userId" });
 
@@ -16,46 +17,37 @@ Child.belongsTo(User, {
   // foreignKey: "userId",
 });
 
-// Child.belongsToMany(Action, {
-//   through: Message,
-//   foreignKey: "actionId",
-// });
-// Action.belongsToMany(Child, { through: Message, foreignKey: "childId" });
-
 Action.hasMany(Message, {
-  as: "message",
-  foreignKey: "actionId",
-  allowNull: false,
+  as: "messages",
+  // foreignKey: "actionId",
 });
 Message.belongsTo(Action, {
-  as: "action",
+  as: "actions",
 });
 
 Child.hasMany(Message, {
-  as: "message",
-  foreignKey: "childId",
-  allowNull: false,
+  as: "messages",
+  // foreignKey: "childId",
 });
 Message.belongsTo(Child, {
-  as: "child",
+  as: "children",
 });
 
 User.hasMany(Message, {
-  as: "message",
-  foreignKey: "userId",
-  allowNull: false,
+  as: "messages",
+  // foreignKey: "userId",
 });
 Message.belongsTo(User, {
-  as: "user",
+  as: "users",
 });
 
-// 1 action has many messages
-// 1 child has many messages
-// 1 user has many messages
+Archive.hasMany(Message, { as: "messages" });
+Message.belongsTo(Archive, { as: "archives" });
 
 module.exports = {
-  User,
-  Child,
   Action,
+  Archive,
+  Child,
   Message,
+  User,
 };
