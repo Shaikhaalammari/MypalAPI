@@ -1,28 +1,28 @@
 //data
-const { Message } = require("../db/models");
+const { Message, User, Child } = require("../db/models");
 
-// exports.childRequest = async (req, res, next) => {
-//   try {
-//     //Creating child message
-//     req.body.childId = req.child.id;
-
-//     console.log("exports.checkout -> orderItems", childMessages);
-
-//     const newMessage = await ChildMessage.create(childMessage);
-//     res.status(201).json(newMessage);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-exports.message = async (req, res, next) => {
+exports.fetchMessage = async (messageId, next) => {
   try {
-    const actionItem = {
-      ...req.body,
-      childId: req.user.id,
-    };
-    const newItem = await Message.create(actionItem);
-    res.json(newItem);
+    const message = await Message.findByPk(messageId);
+    return message;
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.messageList = async (req, res, next) => {
+  try {
+    const _messages = await Message.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      // include: [
+      //   {
+      //     model: Child,
+      //     as: "children",
+      //     attributes: ["id"],
+      //   },
+      // ],
+    });
+    res.json(_messages);
   } catch (error) {
     next(error);
   }
