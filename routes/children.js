@@ -9,6 +9,7 @@ const {
   childUpdate,
   fetchChild,
   childSignin,
+  addMessage,
 } = require("../controllers/childController");
 
 //param
@@ -38,5 +39,8 @@ router.put(
 );
 
 router.post("/:childId", childSignin);
+
+// Add message
+router.post("/:chilId/messages", addMessage);
 
 module.exports = router;

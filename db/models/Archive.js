@@ -1,11 +1,11 @@
 const { DataTypes, Model } = require("sequelize");
 const db = require("../db");
 
-class Message extends Model {}
+class Archive extends Model {}
 
-Message.init(
+Archive.init(
   {
-    message: {
+    archive: {
       type: DataTypes.STRING,
     },
   },
@@ -14,4 +14,4 @@ Message.init(
   }
 );
 
-module.exports = Message;
+module.exports = Archive;

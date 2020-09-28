@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 
 //controllers
-const { messageList, addMessage } = require("../controllers/messageController");
+const { messageList } = require("../controllers/messageController");
 
 // Midleware
 const upload = require("../middleware/multer");
@@ -21,10 +21,7 @@ router.param("messageId", async (req, res, next, messageId) => {
   }
 });
 
-// Messages List
+// Message List
 router.get("/", messageList);
-
-// Add message
-router.post("/", upload.single("image"), addMessage);
 
 module.exports = router;

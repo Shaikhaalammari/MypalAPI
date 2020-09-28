@@ -1,7 +1,8 @@
+const Action = require("./Action");
+const Archive = require("./Archive");
+const Child = require("./Child");
 const Message = require("./Message");
 const User = require("./User");
-const Child = require("./Child");
-const Notification = require("./Notification");
 
 // User.hasOne(Profile, { as: "profile", foreignKey: "userId" });
 
@@ -16,15 +17,37 @@ Child.belongsTo(User, {
   // foreignKey: "userId",
 });
 
-Child.belongsToMany(Message, {
-  through: Notification,
-  foreignKey: "messageId",
+Action.hasMany(Message, {
+  as: "messages",
+  // foreignKey: "actionId",
 });
-Message.belongsToMany(Child, { through: Notification, foreignKey: "childId" });
+Message.belongsTo(Action, {
+  as: "actions",
+});
+
+Child.hasMany(Message, {
+  as: "messages",
+  // foreignKey: "childId",
+});
+Message.belongsTo(Child, {
+  as: "children",
+});
+
+User.hasMany(Message, {
+  as: "messages",
+  // foreignKey: "userId",
+});
+Message.belongsTo(User, {
+  as: "users",
+});
+
+Archive.hasMany(Message, { as: "messages" });
+Message.belongsTo(Archive, { as: "archives" });
 
 module.exports = {
-  User,
+  Action,
+  Archive,
   Child,
   Message,
-  Notification,
+  User,
 };

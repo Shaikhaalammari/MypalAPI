@@ -1,5 +1,5 @@
 //data
-const { Message } = require("../db/models");
+const { Message, User, Child } = require("../db/models");
 
 exports.fetchMessage = async (messageId, next) => {
   try {
@@ -13,24 +13,16 @@ exports.fetchMessage = async (messageId, next) => {
 exports.messageList = async (req, res, next) => {
   try {
     const _messages = await Message.findAll({
-      attributes: { exclude: ["createdAt"] },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      // include: [
+      //   {
+      //     model: Child,
+      //     as: "children",
+      //     attributes: ["id"],
+      //   },
+      // ],
     });
     res.json(_messages);
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.addMessage = async (req, res, next) => {
-  try {
-    if (req.file) {
-      req.body.image = `${req.protocol}://${req.get("host")}/media/${
-        req.file.filename
-      }`;
-    }
-
-    const newMessage = await Message.create(req.body);
-    res.status(201).json(newMessage);
   } catch (error) {
     next(error);
   }
