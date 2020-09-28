@@ -1,5 +1,5 @@
 //data
-const { Child, User } = require("../db/models");
+const { Child, User, Message } = require("../db/models");
 //jwt
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../config/keys");
@@ -14,8 +14,15 @@ exports.fetchChild = async (childId, next) => {
 };
 exports.childList = async (req, res) => {
   try {
-    const childs = await Child.findAll();
-    res.json(childs);
+    const childs = await Child.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: {
+        model: Message,
+        as: "messages",
+        attributes: ["id"],
+      },
+    });
+    res.json(children);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -53,4 +60,20 @@ exports.childSignin = async (req, res) => {
   };
   const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
   res.json({ token });
+};
+
+exports.addMessage = async (req, res, next) => {
+  try {
+    // if (req.file) {
+    //   req.body.image = `${req.protocol}://${req.get("host")}/media/${
+    //     req.file.filename
+    //   }`;
+    // }
+    // if (req.user.id === req.child.userId); we dont need it,,
+    // req.body.childId = req.child.id;
+    const newMessage = await Message.create(req.body);
+    res.status(201).json(newMessage);
+  } catch (error) {
+    next(error);
+  }
 };
