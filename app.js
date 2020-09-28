@@ -12,10 +12,11 @@ const db = require("./db");
 const { Action } = require("./db/models");
 
 //Routes
-const userRoutes = require("./routes/users");
-const childroutes = require("./routes/children");
 const actionRoutes = require("./routes/actions");
+const archiveRoutes = require("./routes/archives");
+const childroutes = require("./routes/children");
 const messageRoutes = require("./routes/messages");
+const userRoutes = require("./routes/users");
 
 //Create Express App instance
 const app = express();
@@ -28,11 +29,12 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 // Routers
-app.use("/actions", actionRoutes);
-app.use("/messages", messageRoutes);
-app.use("/children", childroutes);
-app.use("/media", express.static(path.join(__dirname, "media")));
 app.use(userRoutes);
+app.use("/actions", actionRoutes);
+app.use("/archives", archiveRoutes);
+app.use("/children", childroutes);
+app.use("/messages", messageRoutes);
+app.use("/media", express.static(path.join(__dirname, "media")));
 
 //Not Found Paths
 app.use((req, res, next) => {
@@ -50,7 +52,7 @@ app.use((err, req, res, next) => {
 
 const run = async () => {
   try {
-    await db.sync({ force: true });
+    await db.sync();
     console.log("Connection to the database successful!");
   } catch (error) {
     console.error("Error connecting to the database: ", error);
