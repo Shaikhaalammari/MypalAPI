@@ -4,11 +4,7 @@ const db = require("../db");
 class Message extends Model {}
 
 Message.init(
-  {
-    message: {
-      type: DataTypes.STRING,
-    },
-  },
+  {},
   {
     sequelize: db,
   }
