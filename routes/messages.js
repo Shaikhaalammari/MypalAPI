@@ -3,13 +3,16 @@ const router = express.Router();
 const passport = require("passport");
 
 //controllers
-const { messageList } = require("../controllers/messageController");
+const {
+  fetchMessage,
+  messageList,
+  messageDelete,
+} = require("../controllers/messageController");
 
 // Midleware
 const upload = require("../middleware/multer");
 
 router.param("messageId", async (req, res, next, messageId) => {
-  console.log(`The value of message's ID is ${messageId}`);
   const message = await fetchMessage(messageId, next);
   if (message) {
     req.message = message;
@@ -23,5 +26,8 @@ router.param("messageId", async (req, res, next, messageId) => {
 
 // Message List
 router.get("/", messageList);
+
+//delete Message
+router.delete("/:messageId", messageDelete);
 
 module.exports = router;

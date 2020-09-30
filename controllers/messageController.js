@@ -1,5 +1,5 @@
 //data
-const { Message, User, Child } = require("../db/models");
+const { Message } = require("../db/models");
 
 exports.fetchMessage = async (messageId, next) => {
   try {
@@ -14,15 +14,19 @@ exports.messageList = async (req, res, next) => {
   try {
     const _messages = await Message.findAll({
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      // include: [
-      //   {
-      //     model: Child,
-      //     as: "children",
-      //     attributes: ["id"],
-      //   },
-      // ],
     });
     res.json(_messages);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.messageDelete = async (req, res, next) => {
+  console.log(req.message);
+  try {
+    await req.message.destroy();
+
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
