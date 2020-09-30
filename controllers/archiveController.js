@@ -1,5 +1,6 @@
 //data
-const { Archive } = require("../db/models");
+const { Archive, Message } = require("../db/models");
+const { findByPk } = require("../db/models/User");
 
 exports.fetchArchive = async (archiveId, next) => {
   try {
@@ -23,7 +24,8 @@ exports.archiveList = async (req, res, next) => {
 
 exports.addArchive = async (req, res, next) => {
   try {
-    const newArchive = await Archive.create(req.body);
+    const newArchive = await Message.findByPk(messageId);
+    // const newArchive = await Archive.create(req.body);
     res.status(201).json(newArchive);
   } catch (error) {
     next(error);

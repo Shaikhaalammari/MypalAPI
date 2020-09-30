@@ -63,14 +63,11 @@ exports.childSignin = async (req, res) => {
 };
 
 exports.addMessage = async (req, res, next) => {
+  // req.child = child object
+  //childId and the userId inside req.body
   try {
-    // if (req.file) {
-    //   req.body.image = `${req.protocol}://${req.get("host")}/media/${
-    //     req.file.filename
-    //   }`;
-    // }
-    // if (req.user.id === req.child.userId); we dont need it,,
-    // req.body.childId = req.child.id;
+    req.body.userId = req.user.id;
+    req.body.childId = req.user.childId;
     const newMessage = await Message.create(req.body);
     res.status(201).json(newMessage);
   } catch (error) {

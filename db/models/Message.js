@@ -6,7 +6,7 @@ class Message extends Model {}
 Message.init(
   {
     message: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, //This will be the emotion name
     },
   },
   {
