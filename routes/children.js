@@ -41,6 +41,6 @@ router.put(
 router.post("/:childId", childSignin);
 
 // Add message
-router.post("/:chilId/messages", addMessage);
+router.post("/:childId/messages", addMessage);
 
 module.exports = router;

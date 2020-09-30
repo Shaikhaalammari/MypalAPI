@@ -63,7 +63,11 @@ exports.childSignin = async (req, res) => {
 };
 
 exports.addMessage = async (req, res, next) => {
+  // req.child = child object
+  //childId and the userId inside req.body
   try {
+    req.body.userId = req.user.id;
+    req.body.childId = req.user.childId;
     const newMessage = await Message.create(req.body);
     res.status(201).json(newMessage);
   } catch (error) {
