@@ -13,7 +13,7 @@ exports.fetchMessage = async (messageId, next) => {
 exports.messageList = async (req, res, next) => {
   try {
     const _messages = await Message.findAll({
-      attributes: { exclude: ["createdAt"] },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
     });
     res.json(_messages);
   } catch (error) {
@@ -21,16 +21,12 @@ exports.messageList = async (req, res, next) => {
   }
 };
 
-exports.addMessage = async (req, res, next) => {
+exports.messageDelete = async (req, res, next) => {
+  console.log(req.message);
   try {
-    if (req.file) {
-      req.body.image = `${req.protocol}://${req.get("host")}/media/${
-        req.file.filename
-      }`;
-    }
+    await req.message.destroy();
 
-    const newMessage = await Message.create(req.body);
-    res.status(201).json(newMessage);
+    res.status(204).end();
   } catch (error) {
     next(error);
   }

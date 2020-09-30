@@ -1,17 +1,20 @@
 const { DataTypes, Model } = require("sequelize");
 const db = require("../db");
 
-class Message extends Model {}
+class Action extends Model {}
 
-Message.init(
+Action.init(
   {
-    message: {
+    action: {
       type: DataTypes.STRING, //This will be the emotion name
+    },
+    image: {
+      type: DataTypes.STRING, // This will be the emotions image
     },
   },
   {
     sequelize: db,
   }
 );
-
-module.exports = Message;
+module.exports = Action;
+//Action
