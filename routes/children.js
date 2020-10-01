@@ -41,6 +41,10 @@ router.put(
 router.post("/:childId", childSignin);
 
 // Add message
-router.post("/:childId/messages", addMessage);
+router.post(
+  "/:childId/messages",
+  passport.authenticate("jwt", { session: false }),
+  addMessage
+);
 
 module.exports = router;

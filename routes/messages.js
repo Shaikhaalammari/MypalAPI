@@ -7,6 +7,7 @@ const {
   fetchMessage,
   messageList,
   messageDelete,
+  messageArchive,
 } = require("../controllers/messageController");
 
 // Midleware
@@ -29,5 +30,8 @@ router.get("/", messageList);
 
 //delete Message
 router.delete("/:messageId", messageDelete);
+
+//Message Archive
+router.put("/:messageId", messageArchive);
 
 module.exports = router;
