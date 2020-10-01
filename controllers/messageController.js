@@ -21,6 +21,13 @@ exports.messageList = async (req, res, next) => {
   }
 };
 
+exports.messageArchive = async (req, res) => {
+  const { messageId } = req.params;
+  const message = message.find((message) => message.id === +this.messageId);
+  message.archive = !message.archive;
+  res.status(204).end();
+};
+
 exports.messageDelete = async (req, res, next) => {
   console.log(req.message);
   try {

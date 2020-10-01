@@ -8,6 +8,7 @@ Message.init(
     message: {
       type: DataTypes.STRING, //This will be the emotion name
     },
+    archive: true,
   },
   {
     sequelize: db,
